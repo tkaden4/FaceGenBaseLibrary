@@ -37,7 +37,8 @@
 #define HOST_BIGENDIAN 0
 
 /* Support CCITT Group 3 & 4 algorithms */
-#define CCITT_SUPPORT 1
+//#define CCITT_SUPPORT 0
+#undef CCITT_SUPPORT
 
 /* Support JPEG compression (requires IJG JPEG library) */
 #define JPEG_SUPPORT 1
