@@ -3,6 +3,12 @@ project(LibTpBoost CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 
+add_definitions("-DBOOST_THREAD_BUILD_LIB=1 -DBOOST_ALL_NO_LIB -DBOOST_THREAD_USE_LIB=1")
+
+if(WIN32)
+	add_definitions(-DBOOST_THREAD_POSIX)
+elseif()
+
 set(LIBS_ROOT "boost_1_66_0/libs")
 
 file(GLOB_RECURSE SOURCES
@@ -31,5 +37,4 @@ set(SOURCES ${SOURCES} ${THREAD_SOURCES})
 
 add_library(LibTpBoost STATIC ${SOURCES})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -w -DBOOST_THREAD_BUILD_LIB=1 -DBOOST_ALL_NO_LIB -DBOOST_THREAD_USE_LIB=1 -DBOOST_THREAD_POSIX")
 target_include_directories(LibTpBoost PUBLIC boost_1_66_0/)

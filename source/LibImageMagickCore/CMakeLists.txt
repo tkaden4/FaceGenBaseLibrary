@@ -3,6 +3,13 @@ project(LibImageMagickCore C)
 
 set(PROJECT_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/ImageMagick-6.6.2")
 
+add_definitions("-D_MAGICKLIB -DTIFF_PLATFORM_CONSOLE")
+
+if(UNIX)
+    add_definitions("-DBOOST_THREAD_POSIX")
+endif()
+
+# Generically gather sources
 file(GLOB MAGICK_SOURCES
     "${PROJECT_ROOT}/bzlib/*.c"
     "${PROJECT_ROOT}/coders/*.c"
@@ -13,8 +20,10 @@ file(GLOB MAGICK_SOURCES
     "${PROJECT_ROOT}/zlib/*.c"
 )
 
+# Gather libjasper sources
 file(GLOB_RECURSE JASPER_SOURCES "${PROJECT_ROOT}/jp2/src/libjasper/*.c")
 
+# Gather libtiff sources
 set(TIFF_ROOT ${PROJECT_ROOT}/tiff/libtiff/)
 set(TIFF_SOURCES
     ${TIFF_ROOT}tif_aux.c
@@ -51,8 +60,6 @@ set(TIFF_SOURCES
     ${TIFF_ROOT}tif_write.c
     ${TIFF_ROOT}tif_zip.c
 )
-
-add_definitions(-w -D_MAGICKLIB -DTIFF_PLATFORM_CONSOLE -D_DEBUG)
 
 if(UNIX)
     set(TIFF_SOURCES ${TIFF_SOURCES} ${TIFF_ROOT}tif_unix.c)
