@@ -7,7 +7,7 @@ add_definitions("-DBOOST_THREAD_BUILD_LIB=1 -DBOOST_ALL_NO_LIB -DBOOST_THREAD_US
 
 if(WIN32)
 	add_definitions(-DBOOST_THREAD_POSIX)
-elseif()
+endif()
 
 set(LIBS_ROOT "boost_1_66_0/libs")
 
