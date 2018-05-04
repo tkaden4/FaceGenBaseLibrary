@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.11 FATAL_ERROR)
 project(fgbl CXX)
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_C_STANDARD 11)
 
 set(BIN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
@@ -14,14 +15,15 @@ elseif(WIN32)
     set(PLATFORM_PATH win32)
 endif()
 
+# Set the default build type
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
     # gcc debug flags
-    set(CMAKE_CXX_FLAGS_DEBUG "$-w -D_DEBUG -m64 -fPIC -g -O0")
-    set(CMAKE_CXX_FLAGS_RELEASE "$-w -m64 -fPIC -O3 -ffast-math")
+    set(CMAKE_CXX_FLAGS_DEBUG "-w -D_DEBUG -m64 -fPIC -g -O0")
+    set(CMAKE_CXX_FLAGS_RELEASE "-w -m64 -fPIC -O3 -ffast-math")
     set(CONFIG gcc/64/)
 elseif(CMAKE_CXX_COMPILER_ID MATCHES Clang)
     # clang debug flags
