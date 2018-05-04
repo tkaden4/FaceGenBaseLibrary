@@ -14,6 +14,10 @@ elseif(WIN32)
     set(PLATFORM_PATH win32)
 endif()
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Debug)
+endif()
+
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
     # gcc debug flags
     set(CMAKE_CXX_FLAGS_DEBUG "$-w -D_DEBUG -m64 -fPIC -g -O0")
