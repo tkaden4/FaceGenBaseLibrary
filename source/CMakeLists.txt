@@ -29,6 +29,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES Intel)
     list(APPEND CMAKE_CXX_FLAGS_RELEASE "-diag-disable=11074,11076 -mavx -Ofast")
     set(CONFIG icpc/64)
 elseif(CMAKE_CXX_COMPILER_ID MATCHES MSVC)
+    list(APPEND CMAKE_CXX_FLAGS "/w")
 endif()
 
 # Add postfix to output directory accordingly
