@@ -78,6 +78,7 @@ target_include_directories(LibImageMagickCore PUBLIC
     ${PROJECT_ROOT}/bzlib/
     ${PROJECT_ROOT}/tiff/libtiff/
     ${PROJECT_ROOT}/zlib/
+    ${PROJECT_ROOT}/png/
     ${PROJECT_ROOT}/xlib/
     ${PROJECT_ROOT}/jbig/libjbig/
     ${CMAKE_CURRENT_SOURCE_DIR}/../LibJpegIjg6b/

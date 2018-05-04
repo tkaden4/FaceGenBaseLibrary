@@ -6,8 +6,6 @@ set(CMAKE_CXX_STANDARD 11)
 set(BIN_DIR ${CMAKE_CURRENT_SOURCE_DIR}/bin)
 set(LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib)
 
-message(STATUS "WHAT")
-
 if(APPLE)
     set(PLATFORM_PATH osx)
 elseif(UNIX)
