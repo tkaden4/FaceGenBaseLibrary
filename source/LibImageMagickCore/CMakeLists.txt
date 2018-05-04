@@ -9,6 +9,14 @@ if(UNIX)
     add_definitions("-DBOOST_THREAD_POSIX")
 endif()
 
+if(CMAKE_C_COMPILER_ID MATCHES GNU)
+    list(APPEND CMAKE_C_FLAGS -w)
+elseif(CMAKE_C_COMPILER_ID MATCHES Clang)
+    list(APPEND CMAKE_C_FLAGS -w)
+elseif(CMAKE_C_COMPILER_ID MATCHES MSVC)
+    list(APPEND CMAKE_C_FLAGS /w)
+endif()
+
 # Generically gather sources
 file(GLOB MAGICK_SOURCES
     "${PROJECT_ROOT}/bzlib/*.c"
@@ -16,7 +24,6 @@ file(GLOB MAGICK_SOURCES
     "${PROJECT_ROOT}/jbig/libjbig/*.c"
     "${PROJECT_ROOT}/magick/*.c"
     "${PROJECT_ROOT}/png/*.c"
-    "${PROJECT_ROOT}/xlib/*.c"
     "${PROJECT_ROOT}/zlib/*.c"
 )
 
@@ -63,6 +70,9 @@ set(TIFF_SOURCES
 
 if(UNIX)
     set(TIFF_SOURCES ${TIFF_SOURCES} ${TIFF_ROOT}tif_unix.c)
+    # get xlib sources
+    file(GLOB XLIB_SOURCES "${PROJECT_ROOT}/xlib/*.c")
+    list(APPEND MAGICK_SOURCES ${XLIB_SOURCES})
 elseif(WIN32)
     set(TIFF_SOURCES ${TIFF_SOURCES} ${TIFF_ROOT}tif_win32.c)
 endif()
@@ -71,7 +81,6 @@ add_library(LibImageMagickCore STATIC
     ${MAGICK_SOURCES}
     ${TIFF_SOURCES}
     ${JASPER_SOURCES})
-# for libtiff
 
 target_include_directories(LibImageMagickCore PUBLIC
     ${PROJECT_ROOT}
