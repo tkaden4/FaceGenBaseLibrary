@@ -10,11 +10,11 @@ if(UNIX)
 endif()
 
 if(CMAKE_C_COMPILER_ID MATCHES GNU)
-    list(APPEND CMAKE_C_FLAGS "-w")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w")
 elseif(CMAKE_C_COMPILER_ID MATCHES Clang)
-    list(APPEND CMAKE_C_FLAGS "-w")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -w")
 elseif(CMAKE_C_COMPILER_ID MATCHES MSVC)
-    list(APPEND CMAKE_C_FLAGS "/w")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /w")
 endif()
 
 # Generically gather sources
@@ -72,7 +72,7 @@ if(UNIX)
     set(TIFF_SOURCES ${TIFF_SOURCES} ${TIFF_ROOT}tif_unix.c)
     # get xlib sources
     file(GLOB XLIB_SOURCES "${PROJECT_ROOT}/xlib/*.c")
-    list(APPEND MAGICK_SOURCES ${XLIB_SOURCES})
+    set(MAGICK_SOURCES ${MAGICK_SOURCES} ${XLIB_SOURCES})
 elseif(WIN32)
     set(TIFF_SOURCES ${TIFF_SOURCES} ${TIFF_ROOT}tif_win32.c)
 endif()

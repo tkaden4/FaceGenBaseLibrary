@@ -16,20 +16,27 @@ endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
     # gcc debug flags
-    list(APPEND CMAKE_CXX_FLAGS_DEBUG "-w -D_DEBUG -m64 -fPIC -g -O0")
-    list(APPEND CMAKE_CXX_FLAGS_RELEASE "-w -m64 -fPIC -O3 -ffast-math")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -w -D_DEBUG -m64 -fPIC -g -O0")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -w -m64 -fPIC -O3 -ffast-math")
     set(CONFIG gcc/64/)
 elseif(CMAKE_CXX_COMPILER_ID MATCHES Clang)
     # clang debug flags
-    list(APPEND CMAKE_CXX_FLAGS_DEBUG "-fno-common -ftemplate-depth=1024 -O0 -g -D_DEBUG")
-    list(APPEND CMAKE_CXX_FLAGS_RELEASE "-fno-common -ftemplate-depth=1024 -Ofast")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fno-common -ftemplate-depth=1024 -O0 -g -D_DEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fno-common -ftemplate-depth=1024 -Ofast")
     set(CONFIG clang/64)
 elseif(CMAKE_CXX_COMPILER_ID MATCHES Intel)
-    list(APPEND CMAKE_CXX_FLAGS_DEBUG "-diag-disable=11074,11076 -mavx -g -D_DEBUG")
-    list(APPEND CMAKE_CXX_FLAGS_RELEASE "-diag-disable=11074,11076 -mavx -Ofast")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -diag-disable=11074,11076 -mavx -g -D_DEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -diag-disable=11074,11076 -mavx -Ofast")
     set(CONFIG icpc/64)
 elseif(CMAKE_CXX_COMPILER_ID MATCHES MSVC)
-    list(APPEND CMAKE_CXX_FLAGS "/w")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /w /DWIN32 /D_CRT_SECURE_NO_DEPRECATE=1 /D_SCL_SECURE_NO_DEPRECATE=1 /D_CRT_SECURE_NO_WARNINGS /D_LIB")
+    if(PROJECT_TYPE_PURE_GUI)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D_WINDOWS")
+    else()
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D_CONSOLE")
+    endif()
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /D_DEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /DNDEBUG")
 endif()
 
 # Add postfix to output directory accordingly
@@ -41,8 +48,6 @@ endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR}/${PLATFORM_PATH}/${CONFIG})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${LIB_DIR}/${PLATFORM_PATH}/${CONFIG})
-
-message(STATUS "status: ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}")
 
 # Base is platform-agnostic
 add_subdirectory(LibFgBase)
