@@ -10,11 +10,11 @@ if(UNIX)
 endif()
 
 if(CMAKE_C_COMPILER_ID MATCHES GNU)
-    list(APPEND CMAKE_C_FLAGS -w)
+    list(APPEND CMAKE_C_FLAGS "-w")
 elseif(CMAKE_C_COMPILER_ID MATCHES Clang)
-    list(APPEND CMAKE_C_FLAGS -w)
+    list(APPEND CMAKE_C_FLAGS "-w")
 elseif(CMAKE_C_COMPILER_ID MATCHES MSVC)
-    list(APPEND CMAKE_C_FLAGS /w)
+    list(APPEND CMAKE_C_FLAGS "/w")
 endif()
 
 # Generically gather sources
